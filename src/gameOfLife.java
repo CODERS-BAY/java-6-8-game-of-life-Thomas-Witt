@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class gameOfLife {
     public static void main(String[] args) {
-        int rowspan = 14;
+        int rowspan = 11;
         int colspan = 50;
         int[][] primary = new int[rowspan][colspan];
         int[][] secondary = new int[rowspan][colspan];
@@ -47,7 +47,11 @@ public class gameOfLife {
             }
             for (int i = 0; i < rowspan; i++) {
                 for (int j = 0; j < colspan; j++) {
-                    System.out.print(primary[i][j]);
+                    if(primary[i][j]==0)
+                    System.out.print(".");
+                    else{
+                        System.out.print("#");
+                    }
                 }
                 System.out.println();
             }
