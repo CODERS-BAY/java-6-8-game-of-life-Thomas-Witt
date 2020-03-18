@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class gameOfLife {
     public static void main(String[] args) {
-        //Wähle die Größe deines Anzeigefeldes:
+        //Choose the size of the display:
         int rowspan = 11;
         int colspan = 50;
         int[][] primary = new int[rowspan][colspan];
@@ -16,22 +16,29 @@ public class gameOfLife {
             chooseFigure = scanner.nextInt();
         }
         if(chooseFigure==1){
-            primary = startTheExploder(primary);
+            startTheExploder(primary);
         }
         else if(chooseFigure==2){
-            primary = startTheRow(primary);
+            startTheRow(primary);
         }
         else {
-            primary = startTheSpaceship(primary);
+            startTheSpaceship(primary);
         }
         for (int i = 0; i < rowspan; i++) {
-            for (int j = 0; j < colspan; j++) {
+            for (int j = 0; j < colspan; j++) { //IntelliJ schlägt mir vor "arraycopy" zu verwenden, und obwohl es funktionieren würde,
+                                                //mach ich das lieber mit Schleifen, weil mir der Befehl "arraycopy" unbekannt ist,
+                                                //und ich nicht weiß, welche Parameter ich da eingeben muss, und warum.
                 secondary[i][j] = primary[i][j];
             }
         }
 
         int k = 0;
-        while (k < 60) {      //wähle die Anzahl der Durchgänge
+        int cycles;
+        System.out.println("How many cycles should the programme run?");
+        Scanner scanner2 = new Scanner(System.in);
+        cycles = scanner2.nextInt();
+
+        while (k < cycles) {
 
             changingTheArray(rowspan, colspan, primary, secondary);
 
@@ -74,7 +81,7 @@ public class gameOfLife {
         }
     }
 
-    private static int[][] startTheExploder(int[][] primary) {
+    private static void startTheExploder(int[][] primary) {
         //Füge hier die ersten Felder ein, die am Leben sein sollen:
         primary[primary.length / 2 - 2][primary[1].length / 2 - 2] = 1;
         primary[primary.length / 2 - 2][primary[1].length / 2] = 1;
@@ -88,10 +95,9 @@ public class gameOfLife {
         primary[primary.length / 2 + 2][primary[1].length / 2 - 2] = 1;
         primary[primary.length / 2 + 2][primary[1].length / 2] = 1;
         primary[primary.length / 2 + 2][primary[1].length / 2 + 2] = 1;
-        return primary;
     }
 
-    private static int[][] startTheRow(int[][] primary) {
+    private static void startTheRow(int[][] primary) {
         //Füge hier die ersten Felder ein, die am Leben sein sollen:
         primary[primary.length / 2][primary[1].length / 2 - 4] = 1;
         primary[primary.length / 2][primary[1].length / 2 - 3] = 1;
@@ -103,10 +109,9 @@ public class gameOfLife {
         primary[primary.length / 2][primary[1].length / 2 + 3] = 1;
         primary[primary.length / 2][primary[1].length / 2 + 4] = 1;
         primary[primary.length / 2][primary[1].length / 2 + 5] = 1;
-        return primary;
     }
 
-    private static int[][] startTheSpaceship(int[][] primary) {
+    private static void startTheSpaceship(int[][] primary) {
         //Füge hier die ersten Felder ein, die am Leben sein sollen:
         primary[primary.length / 2 - 2][3] = 1;
         primary[primary.length / 2 - 2][6] = 1;
@@ -117,6 +122,5 @@ public class gameOfLife {
         primary[primary.length / 2 + 1][5] = 1;
         primary[primary.length / 2 + 1][6] = 1;
         primary[primary.length / 2 + 1][7] = 1;
-        return primary;
     }
 }
